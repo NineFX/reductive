@@ -29,10 +29,10 @@ module Lense: {
     ~component: (
       ~state: 'lense,
       ~dispatch: 'action => unit,
-      array<ReasonReact.reactElement>,
-    ) => ReasonReact.component<'a, 'b, 'c>,
-    array<ReasonReact.reactElement>,
-  ) => ReasonReact.component<state<'lense>, ReasonReact.noRetainedProps, action>
+      array<React.reactElement>,
+    ) => React.component<'a, 'b, 'c>,
+    array<React.reactElement>,
+  ) => React.component<state<'lense>, React.noRetainedProps, action>
 }
 
 module Provider: {
@@ -46,10 +46,10 @@ module Provider: {
     ~component: (
       ~state: 'state,
       ~dispatch: 'action => unit,
-      array<ReasonReact.reactElement>,
-    ) => ReasonReact.component<'a, 'b, 'c>,
-    array<ReasonReact.reactElement>,
-  ) => ReasonReact.component<state<'state>, ReasonReact.noRetainedProps, action>
+      array<React.reactElement>,
+    ) => React.component<'a, 'b, 'c>,
+    array<React.reactElement>,
+  ) => React.component<state<'state>, React.noRetainedProps, action>
 }
 
 /* ** These are all visible apis of Redux that aren't needed in Reason.

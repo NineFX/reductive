@@ -49,15 +49,15 @@ module Lense = {
     | UpdateState
     | AddListener(action => unit)
   let createMake = (~name="Lense", ~lense: 'state => 'lense, store: Store.t<'action, 'state>) => {
-    let innerComponent = ReasonReact.reducerComponent(name)
+    let innerComponent = React.reducerComponent(name)
     let make = (
       ~component: (
         ~state: 'lense,
         ~dispatch: 'action => unit,
-        array<ReasonReact.reactElement>,
-      ) => ReasonReact.component<'a, 'b, 'c>,
-      _children: array<ReasonReact.reactElement>,
-    ): ReasonReact.component<state<'lense>, ReasonReact.noRetainedProps, action> => {
+        array<React.reactElement>,
+      ) => React.component<'a, 'b, 'c>,
+      _children: array<React.reactElement>,
+    ): React.component<state<'lense>, React.noRetainedProps, action> => {
       ...innerComponent,
       initialState: () => {
         reductiveState: Some(lense(Store.getState(store))),
@@ -66,7 +66,7 @@ module Lense = {
       reducer: (action, state) =>
         switch action {
         | AddListener(send) =>
-          ReasonReact.Update({
+          React.Update({
             unsubscribe: Some(Store.subscribe(store, _ => send(UpdateState))),
             reductiveState: Some(lense(Store.getState(store))),
           })
@@ -74,8 +74,8 @@ module Lense = {
           lense(Store.getState(store))
           ->Some
           ->Belt.Option.eq(state.reductiveState, (a, b) => a === b)
-            ? ReasonReact.NoUpdate
-            : ReasonReact.Update({
+            ? React.NoUpdate
+            : React.Update({
                 ...state,
                 reductiveState: Some(lense(Store.getState(store))),
               })
@@ -88,8 +88,8 @@ module Lense = {
         },
       render: ({state}) =>
         switch state.reductiveState {
-        | None => ReasonReact.null
-        | Some(state) => ReasonReact.element(component(~state, ~dispatch=Store.dispatch(store), []))
+        | None => React.null
+        | Some(state) => React.element(component(~state, ~dispatch=Store.dispatch(store), []))
         },
     }
     make

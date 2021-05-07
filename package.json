@@ -26,7 +26,7 @@
   "author": "rickyvetter",
   "license": "MIT",
   "peerDependencies": {
-    "reason-react": "^0.7.0"
+    "reason-react": "^0.9.1"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.8",
